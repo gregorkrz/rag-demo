@@ -1,0 +1,15 @@
+{
+    "router_model": {
+        "id": "gemini-1.5-flash"
+    },
+    "retriever_config": {
+        "embedding_model": "models/text-embedding-004",
+        "vector_size": 768,
+        "collection_name": "docs_collection",
+        "host": "localhost",
+        "port": 6333
+    },
+    "responder_model": {
+        "id": "gemini-1.5-flash"
+    }
+}
