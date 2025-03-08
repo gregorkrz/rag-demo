@@ -42,12 +42,13 @@ def generate_collection(
     for idx, (_, row) in enumerate(
         df_docs.iterrows(), start=1
     ):  # Using _ for unused variable
-        content = row["Contents"]
+        print("Row keys:", row.keys())
+        content = row["content"]
 
         if not isinstance(content, str):
             logger.warning(
                 "Skipping document due to missing or invalid content.",
-                filename=row["Filename"],
+                filename=row["file_name"],
             )
             continue
 
@@ -56,7 +57,7 @@ def generate_collection(
                 embedding_model=retriever_config.embedding_model,
                 task_type=EmbeddingTaskType.RETRIEVAL_DOCUMENT,
                 contents=content,
-                title=str(row["Filename"]),
+                title=str(row["file_name"]),
             )
         except google.api_core.exceptions.InvalidArgument as e:
             # Check if it's the known "Request payload size exceeds the limit" error
@@ -64,7 +65,7 @@ def generate_collection(
             if "400 Request payload size exceeds the limit" in str(e):
                 logger.warning(
                     "Skipping document due to size limit.",
-                    filename=row["Filename"],
+                    filename=row["file_name"],
                 )
                 continue
             # Log the full traceback for other InvalidArgument errors
@@ -77,13 +78,13 @@ def generate_collection(
             # Log the full traceback for any other errors
             logger.exception(
                 "Error encoding document (general).",
-                filename=row["Filename"],
+                filename=row["file_name"],
             )
             continue
 
         payload = {
-            "filename": row["Filename"],
-            "metadata": row["Metadata"],
+            "filename": row["file_name"],
+            "metadata": row["meta_data"],
             "text": content,
         }
 
