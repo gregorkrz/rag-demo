@@ -6,6 +6,7 @@ from qdrant_client.http.models import Distance, PointStruct, VectorParams
 
 from flare_ai_rag.ai import EmbeddingTaskType, GeminiEmbedding
 from flare_ai_rag.retriever.config import RetrieverConfig
+from qdrant_client.http.exceptions import UnexpectedResponse
 
 logger = structlog.get_logger(__name__)
 
@@ -22,7 +23,12 @@ def _create_collection(
         collection_name=collection_name,
         vectors_config=VectorParams(size=vector_size, distance=Distance.COSINE),
     )
-
+def collection_exists(client, collection_name):
+    try:
+        client.get_collection(collection_name)
+        return True
+    except UnexpectedResponse:
+        return False
 
 def generate_collection(
     df_docs: pd.DataFrame,
@@ -30,6 +36,12 @@ def generate_collection(
     retriever_config: RetrieverConfig,
     embedding_client: GeminiEmbedding,
 ) -> None:
+    if collection_exists(qdrant_client, retriever_config.collection_name):
+        logger.info(
+            "Collection already exists.",
+            collection_name=retriever_config.collection_name,
+        )
+        return
     """Routine for generating a Qdrant collection for a specific CSV file type."""
     _create_collection(
         qdrant_client, retriever_config.collection_name, retriever_config.vector_size

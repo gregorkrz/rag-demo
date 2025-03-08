@@ -127,7 +127,7 @@ def create_app() -> FastAPI:
     input_config = load_json(settings.input_path / "input_parameters.json")
 
     # Load RAG data.
-    df_docs = pd.read_csv(settings.data_path / "docs.csv", delimiter=",")
+    df_docs = pd.read_csv(settings.data_path / "pubmed_test.csv", delimiter=",")
     logger.info("Loaded CSV Data.", num_rows=len(df_docs))
 
     # Set up the RAG components: 1. Gemini Provider
