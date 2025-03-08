@@ -49,14 +49,13 @@ class GeminiRouter(BaseQueryRouter):
             .get("classification", "")
             .upper()
         )
-        # Validate the classification.
         valid_options = {
-            self.router_config.answer_option,
-            self.router_config.clarify_option,
-            self.router_config.reject_option,
+            self.router_config.fact_check_option,
+            self.router_config.not_relevant_option
         }
+        # Validate the classification.
         if classification not in valid_options:
-            classification = self.router_config.clarify_option
+            classification = self.router_config.not_relevant_option
 
         return classification
 

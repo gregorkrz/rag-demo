@@ -19,7 +19,6 @@ from flare_ai_rag.prompts.schemas import (
     SemanticRouterResponse,
 )
 from flare_ai_rag.prompts.templates import (
-    CONVERSATIONAL,
     RAG_RESPONDER,
     RAG_ROUTER,
     REMOTE_ATTESTATION,
@@ -78,15 +77,15 @@ class PromptLibrary:
                 response_schema=SemanticRouterResponse,
                 category="router",
             ),
-            Prompt(
-                name="conversational",
-                description="Converse with a user",
-                template=CONVERSATIONAL,
-                required_inputs=["user_input"],
-                response_schema=None,
-                response_mime_type=None,
-                category="conversational",
-            ),
+            #Prompt(
+            #    name="conversational",
+            #    description="Converse with a user",
+            #    template=CONVERSATIONAL,
+            #    required_inputs=["user_input"],
+            #    response_schema=None,
+            #    response_mime_type=None,
+            #    category="conversational",
+            #),
             Prompt(
                 name="rag_router",
                 description="The ",
@@ -159,6 +158,7 @@ class PromptLibrary:
                 print("Prompt not found")
             ```
         """
+        print("Retrieving prompt", name)
         if name not in self.prompts:
             logger.error("prompt_not_found", name=name)
             msg = f"Prompt '{name}' not found in library"

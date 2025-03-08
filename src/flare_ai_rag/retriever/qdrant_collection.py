@@ -25,7 +25,10 @@ def _create_collection(
     )
 def collection_exists(client, collection_name):
     try:
-        client.get_collection(collection_name)
+        coll = client.get_collection(collection_name)
+        # If the collection exists, print the number of entries
+        num_points = coll.points_count
+        print("Number of points in collection:", num_points)
         return True
     except UnexpectedResponse:
         return False
@@ -54,6 +57,10 @@ def generate_collection(
     for idx, (_, row) in enumerate(
         df_docs.iterrows(), start=1
     ):  # Using _ for unused variable
+        print(idx)
+        if idx >= 200:
+            print("Reached the limit of 200 points (JUST FOR DEBUGGING)")
+            break
         print("Row keys:", row.keys())
         content = row["content"]
         print("Content:", content)

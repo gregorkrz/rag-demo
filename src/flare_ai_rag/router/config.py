@@ -10,9 +10,8 @@ class RouterConfig:
     system_prompt: str
     router_prompt: str
     model: Model
-    answer_option: str
-    clarify_option: str
-    reject_option: str
+    fact_check_option: str
+    not_relevant_option: str
 
     @staticmethod
     def load(model_config: dict[str, Any]) -> "RouterConfig":
@@ -27,7 +26,6 @@ class RouterConfig:
             system_prompt=ROUTER_INSTRUCTION,
             router_prompt=ROUTER_PROMPT,
             model=model,
-            answer_option="ANSWER",
-            clarify_option="CLARIFY",
-            reject_option="REJECT",
+            fact_check_option="FACT_CHECK",
+            not_relevant_option="NOT_RELEVANT",
         )

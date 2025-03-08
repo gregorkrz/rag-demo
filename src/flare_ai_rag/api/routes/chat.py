@@ -148,7 +148,7 @@ class ChatRouter:
 
         return await handler(message)
 
-    async def handle_rag_pipeline(self, _: str) -> dict[str, str]:
+    async def handle_rag_pipeline(self, message: str) -> dict[str, str]:
         """
         Handle attestation requests.
 
@@ -159,26 +159,27 @@ class ChatRouter:
             dict[str, str]: Response containing attestation request
         """
         # Step 1. Classify the user query.
-        prompt, mime_type, schema = self.prompts.get_formatted_prompt("rag_router")
+        prompt, mime_type, schema = self.prompts.get_formatted_prompt("rag_router",  user_input=message)
         classification = self.query_router.route_query(
             prompt=prompt, response_mime_type=mime_type, response_schema=schema
         )
         self.logger.info("Query classified", classification=classification)
 
-        if classification == "ANSWER":
-            # Step 2. Retrieve relevant documents.
-            retrieved_docs = self.retriever.semantic_search(_, top_k=5)
+        if classification == "FACT_CHECK":
+        # Step 2. Retrieve relevant documfents.
+            retrieved_docs = self.retriever.semantic_search(message, top_k=5)
             self.logger.info("Documents retrieved")
+            self.logger.info(retrieved_docs)
 
             # Step 3. Generate the final answer.
-            answer = self.responder.generate_response(_, retrieved_docs)
+            answer = self.responder.generate_response(message, retrieved_docs)
             self.logger.info("Response generated", answer=answer)
             return {"classification": classification, "response": answer}
 
         # Map static responses for CLARIFY and REJECT.
         static_responses = {
-            "CLARIFY": "Please provide additional context.",
-            "REJECT": "The query is out of scope.",
+            "NOT_RELEVANT": "N/A",
+            #"REJECT": "The query is out of scope.",
         }
 
         if classification in static_responses:
