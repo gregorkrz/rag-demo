@@ -1,5 +1,7 @@
 #!/bin/bash
 # Start Qdrant in ephemeral mode
+python src/download_pubmed.py
+
 qdrant &
 
 # Wait until Qdrant is ready
