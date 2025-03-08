@@ -78,7 +78,8 @@ Flare AI RAG is composed of a Python-based backend and a JavaScript frontend. Fo
    ```bash
    uv run start-backend
    ```
-   In order to run the backend that has three different models, run ```bash
+   In order to run the backend that has three different models, run:
+   ```bash
    uv run start-backend-multiple-models
    ```
 
