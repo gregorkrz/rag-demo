@@ -102,7 +102,7 @@ class PromptLibrary:
                 required_inputs=["user_input"],
                 response_schema=None,
                 response_mime_type=None,
-                category="conversational",
+                category="fact_check",
             ),
             Prompt(
                 name="request_attestation",
