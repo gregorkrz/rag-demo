@@ -27,6 +27,7 @@ dev = [
 
 [project.scripts]
 start-backend = "flare_ai_rag.main:start"
+start-backend-multiple-models = "flare_ai_rag.main_multiple_models:start"
 
 [build-system]
 requires = ["hatchling"]
