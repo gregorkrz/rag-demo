@@ -8,7 +8,7 @@ const BACKEND_ROUTE = "http://localhost:8080/api/routes/chat/";
 const ChatInterface = () => {
   const [messages, setMessages] = useState([
     {
-      text: "Hi, I'm here to help with any questions about Flare! What would you like to know?",
+      text: "Hi, I'm here to help with any questions about the PubMed dataset! What would you like to know?",
       type: 'bot'
     }
   ]);

@@ -56,6 +56,7 @@ def generate_collection(
     ):  # Using _ for unused variable
         print("Row keys:", row.keys())
         content = row["content"]
+        print("Content:", content)
 
         if not isinstance(content, str):
             logger.warning(
