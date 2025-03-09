@@ -1,7 +1,8 @@
 #!/bin/bash
 # Start Qdrant in ephemeral mode
 #python src/download_pubmed.py # the COVID dataset is better and more informative
-python src/download_covid.py
+uv run src/download_covid.py
+
 
 qdrant &
 
@@ -28,4 +29,4 @@ echo "Qdrant is up and running!"
 # Start RAG application
 #uv run start-backend-multiple-models
 echo "Running event listener now"
-python -m src.flare_ai_rag.main_multiple_models_EventListener
+uv run start-backend-multiple-models-eventlistener
