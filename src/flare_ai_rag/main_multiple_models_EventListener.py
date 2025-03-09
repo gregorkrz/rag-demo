@@ -203,8 +203,12 @@ async def process_text(text, request_id, provider, contract, chat_router):
     try:
         response = await chat_router.asyncquery(text)
         response = json.dumps(response)
-    except:
+    except Exception as e:
         print("Exception")
+        print(e)
+        # print traceback
+        import traceback
+        traceback.print_exc()
         return
     result = contract.functions.submitVerification(request_id, response).build_transaction(tx)
     signed_transaction = provider.w3.eth.account.sign_transaction(result, private_key=provider.private_key)
@@ -232,7 +236,7 @@ def start() -> None:
             for model in providers:
                 provider = providers[model]
                 contract = contracts[model]
-                process_text(log.args.text, log.args.requestId, provider, contract, model)
+                asyncio.run(process_text(log.args.text, log.args.requestId, provider, contract, routers[model]))
         sleep(3)
 
 
