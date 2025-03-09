@@ -68,6 +68,33 @@ class ChatRouter:
         self.logger = logger.bind(router="chat")
         self._setup_routes()
 
+    async def asyncquery(self, message: str) -> dict[str, str] | None:  # pyright: ignore [reportUnusedFunction]
+        """
+        Process a chat message through the RAG pipeline.
+        Returns a response containing the query classification and the answer.
+        """
+        try:
+            self.logger.debug("Processing message", message=message)
+
+            # If attestation has previously been requested:
+            # if self.attestation.attestation_requested:
+            #    try:
+            #        resp = self.attestation.get_token([message.message])
+            #    except VtpmAttestationError as e:
+            #        resp = f"The attestation failed with  error:\n{e.args[0]}"
+            #    self.attestation.attestation_requested = False
+            #    return {"response": resp}
+
+            route = await self.get_semantic_route(message)
+            msg = await self.route_message(route, message)  # Just a quick fix thing
+            if msg["classification"] == "FACT_CHECK":
+                # Convert response to json
+                msg["response"] = str(msg["response"])
+            return msg
+        except Exception as e:
+            self.logger.exception("Chat processing failed", error=str(e))
+            raise Exception
+
     def _setup_routes(self) -> None:
         """
         Set up FastAPI routes for the chat endpoint.

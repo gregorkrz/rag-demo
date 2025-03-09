@@ -164,11 +164,12 @@ contracts = {}
 
 default_provider = None
 default_contract = None
+default_chat_router = None
 
 for model in MODELS:
     if model in account_addresses and model in private_keys:
         print("Registering provider for model", model)
-        providers[model] = FlareProvider()
+        providers[model] = FlareProvider("https://coston2-api.flare.network/ext/C/rpc")
         providers[model].private_key = private_keys[model]
         providers[model].address = account_addresses[model]
         contracts[model] = providers[model].w3.eth.contract(address=contract_address, abi=contract_ABI["abi"])
@@ -178,10 +179,12 @@ for model in MODELS:
         if default_contract is None:
             default_contract = contracts[model]
             print("Set the default contract (for fetching data)")
-
+        if default_chat_router is None:
+            default_chat_router = routers[model]
+            print("Set the default chat router (for processing data)")
 processed_request_ids = set()
-
-def process_text(text, request_id, provider, contract, model):
+import json
+async def process_text(text, request_id, provider, contract, chat_router):
     print("Processing text", text, "for request ID", request_id)
     nonce = provider.w3.eth.get_transaction_count(provider.address)
     tx = {
@@ -191,18 +194,26 @@ def process_text(text, request_id, provider, contract, model):
         'gasPrice': provider.w3.to_wei('50', 'gwei'),
         "from": provider.address
     }
-    result = contract.functions.submitVerification(request_id, "test from python: source: " + text).build_transaction(tx)
+    try:
+        response = await chat_router.asyncquery(text)
+        response = json.dumps(response)
+    except:
+        print("Exception")
+        return
+    result = contract.functions.submitVerification(request_id, response).build_transaction(tx)
     signed_transaction = provider.w3.eth.account.sign_transaction(result, private_key=provider.private_key)
     provider.w3.eth.send_raw_transaction(signed_transaction.raw_transaction)
     print("Sent the transaction, hope it works lol")
 
 from time import sleep
-
+import asyncio
 def start() -> None:
     """
     Start the FastAPI application server.
     """
-
+    asyncio.run(process_text("COVID did 100% come from bats", 0, default_provider, default_contract, default_chat_router))
+    sleep(15)
+    return
     while True:
         # print("Retrieving from block number", provider.w3.eth.block_number-30)
         print("Retrieving from block number", default_provider.w3.eth.block_number - 10)
