@@ -29,7 +29,7 @@ def collection_exists(client, collection_name):
         # If the collection exists, print the number of entries
         num_points = coll.points_count
         print("Number of points in collection:", num_points)
-        return num_points > 200
+        return num_points > 150
     except UnexpectedResponse:
         return False
 

@@ -189,6 +189,7 @@ class ChatRouter:
             else:
                 answer_raw = answer
             answer_raw = answer_raw.replace("'", '"')
+            answer_raw = answer_raw.strip()
             print("answer_raw", answer_raw)
             return {"classification": classification, "response": answer,  "response_json": json.loads(answer_raw)}
 
