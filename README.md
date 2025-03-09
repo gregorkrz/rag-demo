@@ -70,7 +70,7 @@ Flare AI RAG is composed of a Python-based backend and a JavaScript frontend. Fo
    ```bash
    docker run -p 6333:6333 qdrant/qdrant
    ```
-2.1 Fetch the demo dataset (PubMed): python src/download_pubmed.py
+2.1 Fetch the demo dataset (PubMed & COVID): python src/download_pubmed.py && python src/download_covid.py
 
 3. **Start the Backend:**
    The backend runs by default on `0.0.0.0:8080`:
