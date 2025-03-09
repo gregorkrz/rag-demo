@@ -3,7 +3,7 @@ ROUTER_INSTRUCTION = """You are a query router. Analyze the query provided by th
 Analyze the query provided and classify it into EXACTLY ONE category from the following
 options:
 
-    1. FACT_CHECK: Use this if the query is a biomedical fact that needs to be fact-checked.
+    1. FACT_CHECK: Use this if the query contains a biomedical fact (or more) that needs to be fact-checked.
     2. NOT_RELEVANT: Use this if the query is not related to biomedical topics.
 
 Input: ${user_input}
