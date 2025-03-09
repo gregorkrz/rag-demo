@@ -43,13 +43,15 @@ You can deploy Flare AI RAG using Docker or set up the backend and frontend manu
 
 2. **Run the Docker Container:**
 
-   ```bash
-   docker run -p 80:80 -it --env-file .env flare-ai-rag
-   ```
+
    ```bash
    docker run -it --env-file .env gkrz/factchecker:v0
    ```
 
+
+   ```bash
+   docker run -p 80:80 -it --env-file .env flare-ai-rag
+   ```
 3. **Access the Frontend:**
    Open your browser and navigate to [http://localhost:80](http://localhost:80) to interact with the Chat UI.
 
@@ -180,8 +182,8 @@ Deploy on a [Confidential Space](https://cloud.google.com/confidential-computing
    Update your `.env` file with:
 
    ```bash
-   TEE_IMAGE_REFERENCE=ghcr.io/flare-foundation/flare-ai-rag:main  # Replace with your repo build image
-   INSTANCE_NAME=<PROJECT_NAME-TEAM_NAME>
+   TEE_IMAGE_REFERENCE=gkrz/factchecker:v0 # Replace with your repo build image
+   INSTANCE_NAME=Flare_Fact_Checker_RAGTEE
    ```
 
 2. **Load Environment Variables:**
