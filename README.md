@@ -38,13 +38,16 @@ You can deploy Flare AI RAG using Docker or set up the backend and frontend manu
 1. **Build the Docker Image:**
 
    ```bash
-   docker build -t flare-ai-rag .
+   docker build -t gkrz/factchecker:v0 .
    ```
 
 2. **Run the Docker Container:**
 
    ```bash
    docker run -p 80:80 -it --env-file .env flare-ai-rag
+   ```
+   ```bash
+   docker run -it --env-file .env gkrz/factchecker:v0
    ```
 
 3. **Access the Frontend:**

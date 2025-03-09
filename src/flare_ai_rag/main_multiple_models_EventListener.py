@@ -148,8 +148,8 @@ def create_routers_for_each_model() -> FastAPI:
 
 routers = create_routers_for_each_model()
 
-from src.provider import FlareProvider
-from src.contract import contract_ABI, contract_address
+from provider import FlareProvider
+from contract import contract_ABI, contract_address
 
 account_addresses = {
     "gemini-1.5-flash": "0x4eF1190cA09A6692030bf6A6E1447fE8f357D440",

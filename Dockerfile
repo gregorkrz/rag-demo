@@ -1,11 +1,3 @@
-# Stage 1: Build Frontend
-FROM node:18-alpine AS frontend-builder
-WORKDIR /frontend
-COPY chat-ui/ .
-RUN npm install
-RUN npm run build
-
-# Stage 2: Build Backend
 FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim AS backend-builder
 WORKDIR /flare-ai-rag
 COPY pyproject.toml README.md ./
@@ -43,10 +35,10 @@ COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
 # Copy frontend files
-COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
+#COPY --from=frontend-builder /frontend/build /usr/share/nginx/html
 
 # Copy nginx configuration
-COPY nginx.conf /etc/nginx/sites-enabled/default
+#COPY nginx.conf /etc/nginx/sites-enabled/default
 
 # Setup supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -55,7 +47,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 LABEL "tee.launch_policy.allow_env_override"="GEMINI_API_KEY"
 LABEL "tee.launch_policy.log_redirect"="always"
 
-EXPOSE 80
+#EXPOSE 80
 
 # Start supervisor (which will start both nginx and the backend)
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

@@ -17,6 +17,7 @@ dependencies = [
     "qdrant-client>=1.13.2",
     "structlog>=25.1.0",
     "uvicorn>=0.34.0",
+    "pandas"
 ]
 
 [dependency-groups]
@@ -28,6 +29,8 @@ dev = [
 [project.scripts]
 start-backend = "flare_ai_rag.main:start"
 start-backend-multiple-models = "flare_ai_rag.main_multiple_models:start"
+start-backend-multiple-models-eventlistener = "flare_ai_rag.main_multiple_models_EventListener:start"
+
 
 [build-system]
 requires = ["hatchling"]
