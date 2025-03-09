@@ -188,6 +188,8 @@ class ChatRouter:
                 answer_raw = answer_raw.replace("\n", " ")
             else:
                 answer_raw = answer
+            answer_raw = answer_raw.replace("'", '"')
+            print("answer_raw", answer_raw)
             return {"classification": classification, "response": answer,  "response_json": json.loads(answer_raw)}
 
         # Map static responses for CLARIFY and REJECT.

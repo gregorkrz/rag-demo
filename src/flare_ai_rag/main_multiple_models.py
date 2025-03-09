@@ -117,7 +117,7 @@ def create_routers_for_each_model() -> FastAPI:
 
     result = {}
     # Load input configuration.
-    df_docs = pd.read_csv(settings.data_path / "pubmed_test.csv", delimiter=",")
+    df_docs = pd.read_csv(settings.data_path / "covidds.csv", delimiter=",")
     logger.info("Loaded CSV Data.", num_rows=len(df_docs))
     app = FastAPI(title="RAG Knowledge API", version="1.0", redirect_slashes=False)
     for i, model in enumerate(MODELS):

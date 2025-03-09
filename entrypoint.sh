@@ -1,6 +1,7 @@
 #!/bin/bash
 # Start Qdrant in ephemeral mode
 python src/download_pubmed.py
+python src/download_covid.py
 
 qdrant &
 
