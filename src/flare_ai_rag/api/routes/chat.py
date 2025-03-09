@@ -188,7 +188,6 @@ class ChatRouter:
                 answer_raw = answer_raw.replace("\n", " ")
             else:
                 answer_raw = answer
-            answer_raw = answer_raw.replace("'", '"')
             # replace single with double quotes
             answer_raw = answer_raw.strip()
             print("answer_raw", answer_raw)
