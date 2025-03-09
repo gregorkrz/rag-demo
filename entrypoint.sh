@@ -14,5 +14,7 @@ done
 echo "Qdrant is up and running!"
 
 # Start RAG application
-uv run start-backend-multiple-models
+#uv run start-backend-multiple-models
+echo "Running event listener now"
+python -m src.flare_ai_rag.main_multiple_models_EventListener
 
