@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start Qdrant in ephemeral mode
-python src/download_pubmed.py
+#python src/download_pubmed.py # the COVID dataset is better and more informative
 python src/download_covid.py
 
 qdrant &
@@ -14,4 +14,5 @@ done
 echo "Qdrant is up and running!"
 
 # Start RAG application
-uv run start-backend
+uv run start-backend-multiple-models
+
