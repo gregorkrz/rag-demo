@@ -68,7 +68,7 @@ explicitly supported by the context.
 Generate an answer to the user query based solely on the given context.
 I will provide relevant sources that either support or refute the claim made in the post. I will also provide a confidence score for each source.
 
-The end result needs to be in json format. Return the following format: {"confirming": [list of sources that support the claim], "refuting": [list of sources that refute the claim], "response": "Human-readable response with short explanations", "corectness_score": final score 0-100 (or null if unable to assess)}. Use the json standard.
+The end result needs to be in json format. Return the following format: {"confirming": [list of sources that support the claim], "refuting": [list of sources that refute the claim], "response": "Human-readable response with short explanations", "corectness_score": final score 0-100 (or null if unable to assess)}. Use the json standard, use double quotes please!
 
 """
 
