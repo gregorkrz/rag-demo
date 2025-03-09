@@ -14,17 +14,6 @@ until curl -s http://127.0.0.1:6333/collections >/dev/null; do
 done
 echo "Qdrant is up and running!"
 
-# Start RAG application
-#uv run start-backend-multiple-models
-echo "Running event listener now"
-python -m src.flare_ai_rag.main_multiple_models_EventListener
-l Qdrant is ready
-echo "Waiting for Qdrant to initialize..."
-until curl -s http://127.0.0.1:6333/collections >/dev/null; do
-  echo "Qdrant is not ready yet, waiting..."
-  sleep 10
-done
-echo "Qdrant is up and running!"
 
 # Start RAG application
 #uv run start-backend-multiple-models
