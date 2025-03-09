@@ -152,12 +152,18 @@ from src.provider import FlareProvider
 from src.contract import contract_ABI, contract_address
 
 account_addresses = {
-    "gemini-1.5-flash": "0x4eF1190cA09A6692030bf6A6E1447fE8f357D440"
+    "gemini-1.5-flash": "0x4eF1190cA09A6692030bf6A6E1447fE8f357D440",
+    "gemini-2.0-flash-lite": "0x8645962a7e3009df2F1529727422A7D62fd77660",
+    "gemini-1.5-flash-8b": "0x80402995a9781E69Bb4d63D42F60C2085EE72968"
 }
 
 private_keys = {
-    "gemini-1.5-flash": "465b2ae9d8bfa9ebddf57bd177de4f26309f063dd65ad2c12d268c0ada726fef"
+    "gemini-1.5-flash": "465b2ae9d8bfa9ebddf57bd177de4f26309f063dd65ad2c12d268c0ada726fef",
+    "gemini-2.0-flash-lite": "c5b539bf42291a1210593f2ed4529763df7f51008cf2e2b3e6407444df01c5c3",
+    "gemini-1.5-flash-8b": "8d797185a8a606abcf3cbe39be40e3b3eb805b81d94571ef0c560f1fd0a97fd9"
 }
+
+
 
 providers = {}
 contracts = {}
@@ -211,9 +217,10 @@ def start() -> None:
     """
     Start the FastAPI application server.
     """
-    asyncio.run(process_text("COVID did 100% come from bats", 0, default_provider, default_contract, default_chat_router))
-    sleep(15)
-    return
+
+    #asyncio.run(process_text("COVID did 100% come from bats", 0, default_provider, default_contract, default_chat_router)) # For testing
+    #sleep(15)
+
     while True:
         # print("Retrieving from block number", provider.w3.eth.block_number-30)
         print("Retrieving from block number", default_provider.w3.eth.block_number - 10)
