@@ -72,7 +72,7 @@ Flare AI RAG is composed of a Python-based backend and a JavaScript frontend. Fo
    ```
 2.1 Fetch the demo dataset (PubMed & COVID): python src/download_pubmed.py && python src/download_covid.py
 
-3. **Start the Backend:**
+3A **Start the Backend:**
    The backend runs by default on `0.0.0.0:8080`:
 
    ```bash
@@ -82,6 +82,9 @@ Flare AI RAG is composed of a Python-based backend and a JavaScript frontend. Fo
    ```bash
    uv run start-backend-multiple-models
    ```
+3B **Start the event listener**
+```python -m src.flare_ai_rag.main_multiple_models_EventListener```
+The model private keys and addresses are hardcoded in the ran module.
 
 #### Frontend Setup
 
